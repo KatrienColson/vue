@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-show met tekst oefening</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div id="app">
+                Geef het uur in
+            <input v-model="tijd">
+            <div v-show="tijd > 7 && tijd < 12 ">
+                Goeiemorgen
+            </div>
+            <div v-show="tijd >= 12 && tijd < 18">
+                Goeiemiddag
+            </div>
+            <div v-show="tijd >= 18 && tijd < 22">
+                Goeieavond
+            </div>
+            <div v-show= "tijd >=22 || tijd <= 7">
+                Goeienacht
+            </div>
+        
+    </div>
+
+
+    <script>
+        const app = {
+                data() {
+                    return {
+                        tijd:''
+                    }
+                }
+        }
+
+        Vue.createApp(app).mount('#app')
+
+    </script>
+</body>
+</html>

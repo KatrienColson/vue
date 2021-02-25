@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V-model</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<style>
+    h3{
+        color: red;
+    }
+</style>
+<body>
+    <div id="app">
+        <p>Geef de titel in aub.</p>
+        <input v-model="titel">
+        <!-- <p>{{ titel }}</p> -->
+
+        <p>Geef de prijs in aub.</p>
+        <input v-model="prijs">
+        <!-- <p>{{ prijs }}</p> -->
+
+        <p>Geef het aantal stuks in aub.</p>
+        <input v-model="stuks">
+        <!-- <p>{{ stuks }}</p> -->
+
+        <h3>Voor {{ stuks }} stuk(s) van het boek {{ titel }}, tegen de kostprijs van {{ prijs }}, betaal je {{ stuks * prijs }} €</h3>
+    </div>
+
+
+    <script>
+        const app = {
+                data() {
+                    return {
+                        titel: ' ',
+                        prijs:' ',
+                        stuks:' '
+                    }
+                }
+        }
+
+        Vue.createApp(app).mount('#app')
+
+    </script>
+</body>
+</html>

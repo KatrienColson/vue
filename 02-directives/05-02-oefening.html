@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oefening</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <p>
+        Render een boodschap afhankelijk van de tijd
+        tijd is een variabele, bv. 22
+        groter dan 7 en kleiner dan 12 : Goeiemorgen
+        groter of gelijk aan 12 en kleiner dan 18: Goeiemiddag
+        groter of gelijk aan 18 en kleiner dan 22: Goeieavond
+        anders: goeienacht
+    </p> 
+    <div id="app">
+        <div v-if="tijd > 7 && tijd < 12 ">
+            Goeiemorgen
+        </div>
+        <div v-else-if="tijd >= 12 && tijd < 18">
+            Goeiemiddag
+        </div>
+        <div v-else-if="tijd >= 18 && tijd < 22">
+            Goeieavond
+        </div>
+        <div v-else>
+            Goeienacht
+        </div>
+    </div>
+    <script>
+    const app = {
+            data: function () {
+                return {
+                    tijd:'10 '
+                }
+            }
+        }
+
+        Vue.createApp(app).mount('#app');
+    </script>
+</body>
+</html>

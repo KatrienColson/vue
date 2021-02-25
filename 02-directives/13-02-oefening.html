@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V-for met array van uitgebreide objecten oefening</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="hond in honden">
+                <span v-for="property in hond">
+                    {{property}} {{ ' ' }} <!-- hier geeft hij alles mee van de array -->
+                </span>
+                    <p>----------------------------------------</p>
+                <p>Naam: {{  hond.naam }}</p>
+                <p> Geboortedatum: {{ hond.geboortedatum }}</p> 
+                <p>Eigenaar:{{ hond.eigenaar }}</p>
+                <p>----------------------------------------</p>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        const app = {
+                data() {
+                    return {
+                        honden: [
+                        { naam: 'Rolf,', geboortedatum:'02/03/2017', eigenaar:'Jan' },
+                        { naam: "Bruto", geboortedatum: "02/03/2017", eigenaar: "Piet" },
+                        { naam: "Kaizer", geboortedatum: "02/04/2018", eigenaar: "Cornelis" },
+                        { naam: "Kazan", geboortedatum: "12/08/2019", eigenaar: "Joris" }
+                        ]
+                    }
+                }
+        }
+
+        Vue.createApp(app).mount('#app')
+
+    </script>
+</body>
+</html>
