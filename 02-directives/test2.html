@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standaard</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1 v-html="titel"></h1>
+
+        <div v-for="mag in magazines">
+            <h2
+                :class="{green: (mag.doelgroep.length>0 && mag.prijs.length!=0), red: (mag.doelgroep.length<1 || mag.prijs.length<1)}">
+                {{ mag.naam }}
+            </h2>
+
+            <p v-if="mag.doelgroep.length>0">
+                Doelgroep: {{ mag.doelgroep }}
+            </p>
+            <p v-else :class="{red: mag.doelgroep.length<1}">
+                De doelgroep ontbreekt!
+            </p>
+
+            <p v-if="mag.prijs.length!=0">
+                Kostprijs los nummer: {{ mag.prijs }}
+            </p>
+            <p v-else :class="{red: mag.prijs.length<1}">
+                De kostprijs ontbreekt!
+            </p>
+        </div>
+
+        <p>
+            Naam: <input v-model="nieuweMagazine.naam">
+            Doelgroep: <input v-model="nieuweMagazine.doelgroep">
+            Prijs: <input v-model="nieuweMagazine.prijs">
+            <button @click="inObjectArray()">Voeg toe</button>
+        </p>
+    </div>
+    <script>
+        const app = {
+                data() {
+                    return {
+                    
+                    }
+                }
+        }
+
+        Vue.createApp(app).mount('#app')
+
+    </script>
+</body>
+</html>

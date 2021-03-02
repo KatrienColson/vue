@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17-opdracht</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .red{
+            color: coral;
+        }
+        .green{
+            color:lightgreen;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h2>Magazines</h2>
+        <label for="naam">Naam: </label>
+        <input v-model="newNaam" >
+
+        <label for="doelgroep">Doelgroep: </label>
+        <input v-model="doelgroep">
+
+        <label for="prijs">Prijs: </label>
+        <input v-model="prijs">
+
+        <button v-on:click="addnewNaam()">Voeg toe</button>
+        <div>
+            <div v-for="magazine in magazines">
+                <h2 :class="{
+                    green: (magazine.doelgroep.length > 0 && magazine.prijs.length != 0), 
+                    red: (magazine.doelgroep.length < 1 || magazine.prijs.length < 1)
+                }">
+                {{ magazine.naam }}</h2>
+
+                <p v-if="magazine.doelgroep.length>0">
+                    Doelgroep: {{ magazine.doelgroep }}
+                </p>
+                <p v-else :class="{
+                    red: magazine.doelgroep.length<1
+                }">
+                    Doelgroep: De doelgroep ontbreekt!
+                </p>
+
+                <p v-if="magazine.prijs.length!=0">
+                    Prijs: {{ magazine.prijs }}
+                </p>
+                <p v-else :class="{
+                    red: magazine.prijs.length<1
+                }">
+                    Prijs:  De prijs ontbreekt!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const app = {
+            data: function () {
+                return {
+                    magazines: [
+                        {naam: "Libelle", doelgroep: "vrouwen",prijs: 4.75},
+                        {naam: "Knack", doelgroep: "",prijs: 6.25},
+                        {naam: "Humo", doelgroep: "gemengd",prijs: ""}
+                    ],
+                    newNaam: ' '
+                }
+            },
+            methods: {
+                addnewNaam: function () {
+                    this.magazines.push(this.newNaam);
+                    this.newNaam = '';
+                }
+            }
+        }
+
+
+        Vue.createApp(app).mount('#app')
+
+    </script>
+</body>
+</html>

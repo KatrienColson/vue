@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opdracht Magazines</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+  <div id="app">
+    <h2>Magazines</h2>
+    <label for="naam">Naam: </label>
+    <input v-model="newNaam" v-on:keyup.enter="addnewNaam">
+
+    <label for="doelgroep">Doelgroep: </label>
+    <input v-model="doelgroep" @keyup.enter="addDoelgroep">
+
+    <label for="prijs">Prijs: </label>
+    <input v-model="prijs" @keyup.enter="addPrijs">
+
+    <button v-on:click="addnewNaam()">Voeg toe</button>
+
+    <ul>
+        <li v-for="magazine in magazines">
+            <p>Naam: {{ magazine.naam }}</p>
+            <p>Doelgroep: {{ magazine.doelgroep }}</p>
+            <p>Prijs: {{ magazine.prijs }}</p>
+        </li>
+    </ul>
+
+</div>
+
+
+<script>
+  const app = {
+      data: function () {
+          return {
+              magazines: [
+                  {naam: "Libelle", doelgroep: "vrouwen",prijs: 4.75},
+                  {naam: "Knack", doelgroep: "",prijs: 6.25},
+                  {naam: "Humo", doelgroep: "gemengd",prijs: ""}
+              ],
+              newNaam: ''
+          }
+      },
+      methods: {
+          addnewNaam: function () {
+              this.magazines.push(this.newNaam);
+              this.newNaam = '';
+  
+  
+          }
+      }
+  }
+
+        Vue.createApp(app).mount('#app')
+
+    </script>
+</body>
+</html>
