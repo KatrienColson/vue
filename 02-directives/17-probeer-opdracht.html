@@ -37,26 +37,26 @@
 
 
 <script>
-  const app = {
-      data: function () {
-          return {
-              magazines: [
-                  {naam: "Libelle", doelgroep: "vrouwen",prijs: 4.75},
-                  {naam: "Knack", doelgroep: "",prijs: 6.25},
-                  {naam: "Humo", doelgroep: "gemengd",prijs: ""}
-              ],
-              newNaam: ''
-          }
-      },
-      methods: {
-          addnewNaam: function () {
-              this.magazines.push(this.newNaam);
-              this.newNaam = '';
-  
-  
-          }
-      }
-  }
+    const app = {
+        data: function () {
+            return {
+                magazines: [
+                    {naam: "Libelle", doelgroep: "vrouwen",prijs: 4.75},
+                    {naam: "Knack", doelgroep: "",prijs: 6.25},
+                    {naam: "Humo", doelgroep: "gemengd",prijs: ""}
+                ],
+                newNaam: ''
+            }
+        },
+        methods: {
+            addnewNaam: function () {
+                this.magazines.push(this.newNaam);
+                this.newNaam = '';
+    
+    
+            }
+        }
+    }
 
         Vue.createApp(app).mount('#app')
 
