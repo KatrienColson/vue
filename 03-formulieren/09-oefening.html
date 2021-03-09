@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oefening</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        #main {
+            width: 70%;
+            margin: 0 0 0 50px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+        <div id="main">
+            <h1>Sticky side</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus distinctio et delectus aliquid officia a nobis dolorem tempore. Sequi exercitationem sapiente fugiat atque doloribus eius unde ratione vel incidunt non autem at culpa asperiores odit nemo accusantium ut, facilis voluptatem excepturi ea molestiae debitis eveniet. Totam suscipit excepturi obcaecati minima? Culpa et numquam, provident, fugit modi blanditiis repudiandae incidunt ratione voluptatibus quasi reiciendis non est perspiciatis, illum facere assumenda eveniet necessitatibus! Commodi dolorem repellendus asperiores molestiae ab sequi natus quia laborum iure totam numquam unde est, deleniti fugiat eius dolorum eos mollitia veniam neque voluptates. Corporis, voluptates fugit. Harum, dolorum.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus distinctio et delectus aliquid officia a nobis dolorem tempore. Sequi exercitationem sapiente fugiat atque doloribus eius unde ratione vel incidunt non autem at culpa asperiores odit nemo accusantium ut, facilis voluptatem excepturi ea molestiae debitis eveniet. Totam suscipit excepturi obcaecati minima? Culpa et numquam, provident, fugit modi blanditiis repudiandae incidunt ratione voluptatibus quasi reiciendis non est perspiciatis, illum facere assumenda eveniet necessitatibus! Commodi dolorem repellendus asperiores molestiae ab sequi natus quia laborum iure totam numquam unde est, deleniti fugiat eius dolorum eos mollitia veniam neque voluptates. Corporis, voluptates fugit. Harum, dolorum.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus distinctio et delectus aliquid officia a nobis dolorem tempore. Sequi exercitationem sapiente fugiat atque doloribus eius unde ratione vel incidunt non autem at culpa asperiores odit nemo accusantium ut, facilis voluptatem excepturi ea molestiae debitis eveniet. Totam suscipit excepturi obcaecati minima? Culpa et numquam, provident, fugit modi blanditiis repudiandae incidunt ratione voluptatibus quasi reiciendis non est perspiciatis, illum facere assumenda eveniet necessitatibus! Commodi dolorem repellendus asperiores molestiae ab sequi natus quia laborum iure totam numquam unde est, deleniti fugiat eius dolorum eos mollitia veniam neque voluptates. Corporis, voluptates fugit. Harum, dolorum.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus distinctio et delectus aliquid officia a nobis dolorem tempore. Sequi exercitationem sapiente fugiat atque doloribus eius unde ratione vel incidunt non autem at culpa asperiores odit nemo accusantium ut, facilis voluptatem excepturi ea molestiae debitis eveniet. Totam suscipit excepturi obcaecati minima? Culpa et numquam, provident, fugit modi blanditiis repudiandae incidunt ratione voluptatibus quasi reiciendis non est perspiciatis, illum facere assumenda eveniet necessitatibus! Commodi dolorem repellendus asperiores molestiae ab sequi natus quia laborum iure totam numquam unde est, deleniti fugiat eius dolorum eos mollitia veniam neque voluptates. Corporis, voluptates fugit. Harum, dolorum.</p>
+        </div>
+            <div v-sticky="100">
+                    <p>Schrijf je in op de nieuwsbrief</p>
+                    <label>Email </label><input type="text" name="">
+                </div>
+        </div>
+
+
+    <script>
+        const app = Vue.createApp({
+            data: function () {
+                return {
+                }
+            }
+        })
+        app.directive('sticky', {
+            mounted: function (el, binding) {
+            el.style.position = 'fixed',
+            el.style.top = binding.value + 'px',
+            el.style.right = '40px'
+            }
+        })
+        app.mount('#app')
+    </script>
+</body>
+</html>

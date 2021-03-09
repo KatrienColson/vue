@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meerdere checkboxen</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="checkbox" id="checkbox" checked v-model="checked">
+        <label for="checkbox">{{ checked }}</label>      
+        <br>
+        <input type="checkbox" id="jef" value="jef" v-model="checkedNames">
+        <label for="jef">Jef</label>
+        <input type="checkbox" id="piet" value="piet" v-model="checkedNames">
+        <label for="piet">Piet</label>
+        <input type="checkbox" id="joris" value="joris" v-model="checkedNames">
+        <label for="joris">Joris</label>
+        <br>
+        <span>Checked names: {{ checkedNames }}</span><!-- hier kun je mee zien welke je hebt aangevinkt -->
+    </div>
+
+
+    <script>
+        const app = {
+                data() {
+                    return {
+                        checked: false,
+                        checkedNames: []
+                    }
+                }
+        }
+
+        Vue.createApp(app).mount('#app')
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zelf een director maken</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <p>hier staat je cursor automatich in de input</p>
+    <div id="app">
+        <input v-focus type="text" name="">
+
+    </div>
+
+
+    <script>
+        //dit is de manier van ervoor, nu moet je deze helemaal aanpassen, zie hieronder
+        // const app = {
+        //         data() {
+        //             return {
+                    
+        //             }
+        //         }
+        // }
+        // Vue.createApp(app).mount('#app')
+
+//dit heb je nodig om zelf een V te maken
+        const app = Vue.createApp({
+            data: function () {
+                return {
+                }
+            }
+        })
+        app.directive('focus', {
+            // When the bound element is mounted into the DOM...
+            mounted: function (el) {
+            // Focus the element
+                el.focus()
+            }
+        })
+
+
+
+app.mount('#app')
+
+
+    </script>
+</body>
+</html>

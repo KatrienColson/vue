@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oefening Formulier</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- label met inputveld -->
+        <p>
+            <label for="voornaam">Voornaam</label>
+            <input v-model="voornaam">
+            <label for="achternaam">Achternaam</label>
+            <input v-model="achternaam">
+        </p>
+        <!-- Radiobutton -->
+        <p>Geslacht:
+            <input type="radio" id="man" value="man" v-model="geslacht">
+            <label for="man">Man</label>
+            <input type="radio" id="vrouw" value="vrouw" v-model="geslacht">
+            <label for="vrouw">Vrouw</label>
+            <input type="radio" id="x" value="x" v-model="geslacht">
+            <label for="x">X</label>
+        </p>
+        <!-- Multiple Selected -->
+        <p>Ik heb interesse in volgende onderwerpen<br>
+            <select v-model="multipleSelected" multiple>
+                <option disabled value="">Select één of meerdere</option>
+                <option>Verkoop</option>
+                <option>Aankoop</option>
+                <option>Wetgeving</option>
+            </select>
+        </p>
+        <!-- Textarea -->
+        <textarea v-model="boodschap" placeholder="Typ uw boodschap hier."></textarea>
+        <!-- Checkbox -->
+        <p>
+            <input type="checkbox" id="akkoord" v-model="akkoord"><label for="akkoord">Ik ga akkoord met het gebruik van mijn gegevens voor de registratie van mijn account.</label>
+        </p>
+        <p style="color:green">{{mijnOplossing()}}</p>
+
+    </div>
+
+    <script>
+        const app = {
+                data() {
+                    return{
+                    voornaam:"",
+                    achternaam:"",
+                    geslacht:"",
+                    multipleSelected:[],
+                    boodschap: "",
+                    akkoord: false
+                    };
+                },
+                    methods:{
+                        mijnOplossing: function (){
+                            return "ik ben" + this.voornaam + " " + this.achternaam +", mijn geslacht is " + this.geslacht  + ". Ik heb interesse in " + this.multipleSelected + ". Mijn boodschap is " + this.boodschap + ". Het antwoorde is " + this.akkoord ;
+                        }
+                }
+        }
+
+        Vue.createApp(app).mount('#app')
+
+    </script>
+</body>
+</html>

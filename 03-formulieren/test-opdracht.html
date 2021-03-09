@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="nl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="author" content="" />
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<title>Opdracht Nieuwsbrief</title>
+		<script src="https://unpkg.com/vue@next"></script>
+		<style>
+			.red {
+				color: red;
+			}
+			.green {
+				color: green;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+            <!-- <div v-for="form in newForm">
+                <h2
+                v-bind:class="{red: form.voornaam === '' || form.achternaam === '' || form.email==='' ||form.checkedPhone===''||form.akkoord==='', green: form.voornaam.length > 0 ||form.achternaam.length>0 >||form.email.length> 0 ||form.checkedPhone.length>0 ||form.akkoord.length>0 }"
+            >
+                {{ form.naam }}
+            </h2>
+            <div v-if="form.voornaam === ''">
+                <p class="red">Uw naam ontbreekt!</p>
+            </div>
+            <div v-else>
+                <p>Voornaam: {{ form.voornaam }}</p>
+            </div>
+            <div v-if="form.achternaam === ''">
+                <p class="red">Uw achternaam ontbreekt!</p>
+            </div>
+            <div v-else>
+                <p>Achternaam: {{ form.achternaam }}</p>
+            </div>
+            <div v-if="form.email === ''">
+                <p class="red">Uw emailadres ontbreekt!</p>
+            </div>
+            <div v-else>
+                <p>Emailadres: {{ form.email }}</p>
+            </div>
+            <div v-if="form.checkedPhone === ''">
+                <p class="red">Uwhebt geen mogelijke nieuwsbrief aangeduid!</p>
+            </div>
+            <div v-else>
+                <p>Nieuwsbrief: {{ form.chekedPhone }}</p>
+            </div>
+            <div v-if="form.akkoord === ''">
+                <p class="red">Gelieve nog aan te duiden dat u akkoord bent met het gebruik van uw gegevens</p>
+            </div>
+            <div v-else>
+                <p>Gebruik gegevens: {{ form.akkoord }}</p>
+            </div>
+
+            </div> -->
+
+			<h1>Voeg hier je gegevens in!</h1>
+			<input id="voornaam" placeholder="Voornaam" v-model="voornaam"  v-model="checkedNames">
+			<br />
+            <input id="achternaam" placeholder="Achternaam" v-model="achternaam"  v-model="checkedNames">
+			<br />
+			<input id="email" placeholder="Emailadres" v-model="email"  v-model="checkedNames">
+			<br />
+            <p>Ik aboneer mij op volgende nieuwsbrieven:<br/>
+                <input type="checkbox" id="mobiele" value="mobiele" v-model="checkedPhone">
+                <label for="mobiele">Mobiele technology</label><br/>
+                <input type="checkbox" id="games" value="games" v-model="checkedPhone">
+                <label for="games">PS Games</label><br/>
+                <input type="checkbox" id="webdesign" value="webdesign" v-model="checkedPhone">
+                <label for="webdesign">Webdesign</label>
+            </p>
+            <p>
+                <input type="checkbox" id="akkoord" v-model="akkoord"><label for="akkoord">Ik ga akkoord met het gebruik van mijn gegevens voor de registratie van mijn account.</label>
+            </p>
+			<br /><br />
+			<button v-on:click="newForm()">Voeg Toe!</button>
+            <span>
+                {{ voornaam }}
+                {{ achternaam }}
+                {{ email }}
+                {{ checkedPhone }}
+                {{ akkoord }}
+            </span>
+		</div>
+
+		<script>
+			const app = {
+				data: function () {
+					return {
+						voornaam: "",
+                        achternaam:"",
+						email: "",
+                        checkedPhone: [],
+                        akkoord: false,
+					
+					};
+				},
+				methods: {
+					checkedNames: function () {
+						let newForm = {
+							voornaam: "",
+                            achternaam:"",
+							email: "",
+                            checkedPhone:""
+						};
+						newForm.voornaam = this.voornaam;
+                        newForm.achternaam =this.achternaam;
+						newForm.email = this.email;
+                        newForm.checkedPhone=this.checkedPhone;
+
+
+
+
+                        // if (this.voornaam === "") {
+						// 	alert("Vul hier je voornaam in.");
+						// } else {
+						// 	this.newForm.push(newForm);
+						// }
+
+                        // if (this.achternaam === ""){
+                        //     alert("Gelieve minstens de ACHTERNAAM in te geven.");
+						// } else {
+						// 	this.newForm.push(newForm);
+						// }
+                        
+                        // if (this.email === ""){
+                        //     alert("Gelieve uw emailadres in te geven.");
+						// } else {
+						// 	this.newForm.push(newForm);
+						// }
+
+						// this.voornaam = "";
+                        // this.achternaam="";
+						// this.email = "";
+
+					},
+				},
+			};
+			Vue.createApp(app).mount("#app");
+		</script>
+	</body>
+</html>

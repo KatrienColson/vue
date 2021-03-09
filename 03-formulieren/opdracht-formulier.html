@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opdracht formulier</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+    /* #main {
+        display: none;
+    } */
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="main">
+            
+        <h2>Nieuwsbrief</h2>
+     
+        <p>
+            <label for="voornaam">Voornaam</label>
+            <input v-model="voornaam"><br/><br/>
+            <label for="achternaam">Achternaam</label>
+            <input v-model="achternaam"><br/><br/>
+            <label for="email">Emailadres</label>
+            <input v-model="email">
+        </p>
+        <br>
+        <br>
+        <p>Ik aboneer mij op volgende nieuwsbrieven:<br/>
+            <input type="checkbox" id="mobiele" value="mobiele" v-model="checkedNames">
+            <label for="mobiele">Mobiele technology</label><br/>
+            <input type="checkbox" id="games" value="games" v-model="checkedNames">
+            <label for="games">PS Games</label><br/>
+            <input type="checkbox" id="webdesign" value="webdesign" v-model="checkedNames">
+            <label for="webdesign">Webdesign</label>
+        </p>
+        <br/>
+        <br/>
+        <p>
+            <input type="checkbox" id="akkoord" v-model="akkoord"><label for="akkoord">Ik ga akkoord met het gebruik van mijn gegevens voor de registratie van mijn account.</label>
+        </p>
+        <br/>
+        <br/>
+        <button v-on:click="addnewNaam()">Voeg toe</button>
+        <br/>
+        <br/>
+        <span></span>
+        <input v-popup>
+    </div>
+
+    </div>
+
+
+    <script>
+        const app = Vue.createApp({
+            data: function () {
+                return {
+                    
+                }
+            }
+        })
+        app.directive('popup', {
+            mounted: function (el) {
+                el.popup.display='block'
+            }
+        })
+
+
+
+app.mount('#app')
+
+    </script>
+</body>
+</html>

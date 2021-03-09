@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <style type="text/css">
+        .red {
+            color: red;
+        }
+
+        .green {
+            color: green;
+        }
+    </style>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1 v-html="titel"></h1>
+        <div v-for="singleMagazine in magazines">
+            <h2
+                :class="{red: singleMagazine.doelgroep.length==0 || singleMagazine.prijs.length==0, green: singleMagazine.doelgroep.length!=0 && singleMagazine.prijs!=null}">
+                {{ singleMagazine.naam }}
+                <!-- {{singleMagazine.prijs.length}} -->
+            </h2>
+            <p v-if='singleMagazine.doelgroep.length!=0'>Doelgroep:
+                {{ singleMagazine.doelgroep}}</p>
+            <p v-else class="red">De doelgroep
+                ontbreekt!</p>
+            <p v-if='singleMagazine.prijs.length!=0'>Kostprijs los nummer:
+                {{singleMagazine.prijs}}</p>
+            <p v-else class="red">De kostprijs ontbreekt!</p>
+        </div>
+        <div>
+            Naam: <input v-model="newMagazine.naam">
+            Doelgroep: <input v-model="newMagazine.doelgroep">
+            Prijs: <input v-model="newMagazine.prijs">
+            <button v-on:click="addNewMagazine()">Voeg toe</button>
+        </div>
+    </div>
+    <script type="text/javascript">
+        const app = {
+            data: function () {
+                return {
+                    titel: "<i>Magazines</i>",
+                    magazines: [
+                        {
+                            naam: "Libelle", doelgroep: "vrouwen",
+                            prijs: 4.75
+                        },
+                        {
+                            naam: "Knack", doelgroep: "",
+                            prijs: 6.25
+                        },
+                        {
+                            naam: "Humo", doelgroep: "gemengd",
+                            prijs: ""
+                        }
+                    ],
+                    newMagazine: { naam: "", doelgroep: "", prijs: "" }
+                }
+            },
+            methods: {
+                addNewMagazine: function () {
+                    if (this.newMagazine.naam) {
+                        this.magazines.push(this.newMagazine);
+                        this.newMagazine = { naam: "", doelgroep: "", prijs: "" };
+                        console.log(this.magazines)
+                    }
+                    else {
+                        alert("Gelieve minstens de naam in te geven.")
+                    }
+                }
+            }
+        }
+
+        Vue.createApp(app).mount('#app')
+    </script>
+</body>
+
+</html>

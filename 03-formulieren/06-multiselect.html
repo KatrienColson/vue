@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiselect</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <p>test dit door cntr of shift in te houden</p>
+    <div id="app">
+        <select v-model="multipleSelected" multiple>
+            <option disabled value="">Selecteer aub.</option>
+                <option value="optieA">A</option>
+                <option value="optieB">B</option>
+                <option value="optieC">C</option>
+            </select>
+            <br>
+            <span>Selected: {{ multipleSelected }}</span>
+            
+    </div>
+
+
+    <script>
+        const app = {
+                data() {
+                    return {
+                    multipleSelected:[]
+                    }
+                }
+        }
+
+        Vue.createApp(app).mount('#app')
+
+    </script>
+</body>
+</html>
