@@ -7,71 +7,109 @@
     <title>Opdracht formulier</title>
     <script src="https://unpkg.com/vue@next"></script>
     <style>
-    /* #main {
+    #popup {
         display: none;
-    } */
+    }
+    .red {
+        color: red;
+        font-size: 20px;
+    }
+    .green {
+    color: green;
+    font-size: 20px;
+    }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <div id="main">
-            
+        <div class="popup" v-popup>
         <h2>Nieuwsbrief</h2>
-     
         <p>
-            <label for="voornaam">Voornaam</label>
-            <input v-model="voornaam"><br/><br/>
-            <label for="achternaam">Achternaam</label>
-            <input v-model="achternaam"><br/><br/>
-            <label for="email">Emailadres</label>
-            <input v-model="email">
+            <label for="voornaam">Voornaam </label><br/>
+            <input type="text" v-model="voornaam" /><br/><br/>
+            <label for="achternaam">Achternaam</label><br/>
+            <input type="text" v-model="achternaam"><br/><br/>
+            <label for="email">Emailadres</label><br/>
+            <input type="text" v-model="email"><br/><br/>
         </p>
-        <br>
-        <br>
+
         <p>Ik aboneer mij op volgende nieuwsbrieven:<br/>
-            <input type="checkbox" id="mobiele" value="mobiele" v-model="checkedNames">
+            <input type="checkbox" id="nieuwsbrief" value="mobiele" v-model="nieuwsbrief">
             <label for="mobiele">Mobiele technology</label><br/>
-            <input type="checkbox" id="games" value="games" v-model="checkedNames">
+            <input type="checkbox" id="nieuwsbrief" value="games" v-model="nieuwsbrief">
             <label for="games">PS Games</label><br/>
-            <input type="checkbox" id="webdesign" value="webdesign" v-model="checkedNames">
+            <input type="checkbox" id="nieuwsbrief" value="webdesign" v-model="nieuwsbrief">
             <label for="webdesign">Webdesign</label>
         </p>
         <br/>
-        <br/>
         <p>
-            <input type="checkbox" id="akkoord" v-model="akkoord"><label for="akkoord">Ik ga akkoord met het gebruik van mijn gegevens voor de registratie van mijn account.</label>
+            <input type="checkbox" id="akkoord" v-model="akkoord">
+            <label for="akkoord">
+                Ik ga akkoord met het gebruik van mijn gegevens voor de registratie van mijn account.
+            </label>
         </p>
         <br/>
+        <input type="submit" id="verzendbutton" value="Verstuur" @click="controleCheck"/>
         <br/>
-        <button v-on:click="addnewNaam()">Voeg toe</button>
-        <br/>
-        <br/>
-        <span></span>
-        <input v-popup>
-    </div>
-
+        <span class="red" v-for="melding in meldingen">
+            {{ melding }}
+        </span>
+        <span class="green">{{ success }}</span>
+        </div>
     </div>
 
 
     <script>
-        const app = Vue.createApp({
-            data: function () {
+            const app = Vue.createApp({
+            data() {
                 return {
-                    
+                voornaam: '',
+                achternaam: '',
+                email: '',
+                nieuwsbrief: [],
+                akkoord: false,
+                success: '',
+                meldingen: [],
                 }
-            }
+            },
+            methods: {
+            controleCheck: function () {
+                let meldingBoolean = true
+                this.meldingen = []
+    
+                if (this.voornaam.length == 0) {
+                    meldingBoolean = false
+                    this.meldingBoolean = this.meldingen.push('Gelieve uw voornaam in te geven.')
+                }
+                if (this.achternaam.length == 0) {
+                    meldingBoolean = false
+                    this.meldingen.push('Gelieve uw achternaam in te geven..')
+                }
+                if (this.email.length == 0) {
+                    meldingBoolean = false
+                    this.meldingen.push('Gelieve uw emailadres in te geven.')
+                }
+                if (this.nieuwsbrief.length < 1) {
+                    meldingBoolean = false
+                    this.meldingen.push('Gelieve 1 keuze te maken.')
+                }
+                if (this.akkoord == false) {
+                    meldingBoolean = false
+                    this.meldingen.push('Gelieve nog aan te duiden dat u akkoord bent met het gebruik van uw gegevens.')
+                }
+                if (meldingBoolean) {
+                    this.success = 'Uw gegevens zijn verstuurd.'
+                }
+                },
+            },
         })
         app.directive('popup', {
             mounted: function (el) {
-                el.popup.display='block'
-            }
-        })
-
-
-
-app.mount('#app')
-
+                el.style.display = 'block'
+            },
+            })
+            app.mount('#app')
     </script>
 </body>
 </html>

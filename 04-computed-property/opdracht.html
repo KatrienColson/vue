@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standaard</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Resultaat</h1>
+        <div v-for="cursist in cursisten"> 
+            <p>Naam:{{ cursist.naam }}</p>
+            <!-- Punten:{{ beoordelingsvakken }} -->
+
+            <h2>Geslaagd</h2>
+            <div v-for="(vak >= 50)"> 
+                <p v-if="(vak==1)">
+                {{ beoordelingsvakken.resultaat }}
+                Geslaagd
+                </p>
+            </div>
+
+            <h2>Onvoldoende</h2>
+            <div v-for="(vak< 50)">
+            <p v-if="(vak==0)">
+                    {{ beoordelingsvakken.resultaat }}
+            </p>  
+            <p>-----------------------------------------------------</p>
+            </div>    
+        </div>
+    </div>
+
+    <script>
+        const app = {
+                data() {
+                    return {
+                        cursisten: [
+                            {
+                            naam: 'Jan',
+                            resultaten: [
+                            ['html', 40],
+                            ['JS', 80],
+                            ['JS-OOP', 70]
+                            ]
+                            },
+                            {
+                            naam: 'Piet',
+                            resultaten: [
+                                ['html', 90],
+                                ['JS', 90],
+                                ['JS-OOP', 20]
+                            ]
+                            }
+                        ]
+                    }
+                },
+                computed: {
+                    beoordelingsvakken: function () {
+                        return this.cursisten.map(cursist => {
+                        return cursist.resultaten.map(vak => {
+                            return vak[1] >= 50 ? 1 : 0
+                        })
+                    })
+                }
+            }}
+        Vue.createApp(app).mount('#app')
+
+    </script>
+</body>
+</html>

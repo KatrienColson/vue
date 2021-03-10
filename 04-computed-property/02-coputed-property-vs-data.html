@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>computed property vs data</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        De initialen van {{naam}} zijn : {{initials()}}
+    </div>        
+
+
+    <script>
+        const app = {
+                data() {
+                    return {
+                    naam:"Evan You"
+                    }
+                },
+                methods: {
+                    initials: function () {
+                        let naamArray = this.naam.split(' ');
+                        let initialen = "";
+                        for (let woord in naamArray) {
+                        console.log(woord)//woord is teller
+                        initialen += naamArray[woord].charAt(0);
+                        }
+                        console.log(initialen);
+                        return initialen.toUpperCase();
+
+                    }
+                }   
+        }
+
+
+        Vue.createApp(app).mount('#app')
+
+    </script>
+</body>
+</html>
