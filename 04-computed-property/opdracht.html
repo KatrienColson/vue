@@ -12,11 +12,11 @@
 </head>
 
 <body>
-    <div id="app">
+    <!-- <div id="app">
         <h1>Resultaat</h1>
         <div v-for="cursist in cursisten"> 
             <p>Naam:{{ cursist.naam }}</p>
-            <!-- Punten:{{ beoordelingsvakken }} -->
+
 
             <h2>Geslaagd</h2>
             <div v-for="(vak >= 50)"> 
@@ -33,6 +33,28 @@
             </p>  
             <p>-----------------------------------------------------</p>
             </div>    
+        </div>
+    </div> -->
+
+    <div id="app">
+        <h1>Resultaat</h1>
+        <div v-for="(cursist,i) in cursisten">
+            <h2>Naam: {{ cursist.naam }}</h2>
+
+            <h3>Voldoende</h3>
+            <div v-for="(vak,u) in cursist.resultaten">
+                <p v-if="beoordelingVakken[i][u] == 1">
+                    {{ vak[0] }} : {{ vak[1] }}
+                </p>
+            </div>
+
+            <h3>Onvoldoende</h3>
+            <div v-for="(vak,u) in cursist.resultaten">
+                <p v-if="beoordelingVakken[i][u] == 0">
+                    {{ vak[0] }} : {{ vak[1] }}
+                </p>
+            </div>
+            <hr>
         </div>
     </div>
 
