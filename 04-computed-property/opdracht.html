@@ -7,56 +7,41 @@
     <title>Standaard</title>
     <script src="https://unpkg.com/vue@next"></script>
     <style>
-
+        h2{
+            color: grey;
+        }
+        .geslaagd{
+            color: lightgreen;
+        }
+        .onvoldoende{
+            color: coral;
+        }
+        .border{
+            color: grey;
+        }
     </style>
 </head>
 
 <body>
     <div id="app">
         <h1>Resultaat</h1>
-        <div v-for="cursist in cursisten"> 
-            <p>Naam:{{ cursist.naam }}</p>
-
-
-            <h2>Geslaagd</h2>
-            <div v-for="(vak >= 50)"> 
-                <p v-if="(vak==1)">
-                {{ beoordelingsvakken.resultaat }}
-                Geslaagd
-                </p>
-            </div>
-
-            <h2>Onvoldoende</h2>
-            <div v-for="(vak< 50)">
-            <p v-if="(vak==0)">
-                    {{ beoordelingsvakken.resultaat }}
-            </p>  
-            <p>-----------------------------------------------------</p>
-            </div>    
-        </div>
-    </div>
-
-    <!-- <div id="app">
-        <h1>Resultaat</h1>
         <div v-for="(cursist,i) in cursisten">
             <h2>Naam: {{ cursist.naam }}</h2>
-
-            <h3>Voldoende</h3>
-            <div v-for="(vak,u) in cursist.resultaten">
-                <p v-if="beoordelingVakken[i][u] == 1">
-                    {{ vak[0] }} : {{ vak[1] }}
+            <h3 class="geslaagd">Geslaagd</h3>
+            <div v-for="([vak,resultaat],e) in cursist.resultaten">
+                <p v-if="beoordelingsVakken[i][e] == 1">
+                {{ vak }} : {{ resultaat }}
                 </p>
             </div>
-
-            <h3>Onvoldoende</h3>
-            <div v-for="(vak,u) in cursist.resultaten">
-                <p v-if="beoordelingVakken[i][u] == 0">
-                    {{ vak[0] }} : {{ vak[1] }}
+            <h3 class="onvoldoende">Onvoldoende</h3>
+            <div v-for="([vak,resultaat],e) in cursist.resultaten">
+                <p v-if="beoordelingsVakken[i][e] == 0">
+                {{ vak }} : {{ resultaat }}
                 </p>
             </div>
-            <hr>
+            <p class="border">----------------------------------------------</p>
         </div>
-    </div> -->
+    </div>
 
     <script>
         const app = {
@@ -83,14 +68,15 @@
                     }
                 },
                 computed: {
-                    beoordelingsvakken: function () {
-                        return this.cursisten.map(cursist => {
-                        return cursist.resultaten.map(vak => {
-                            return vak[1] >= 50 ? 1 : 0
+                    beoordelingsVakken: function () {
+                        return this.cursisten.map((cursist) => {
+                        return cursist.resultaten.map(([vak, resultaat]) => {
+                            return resultaat >= 50 ? 1 : 0
                         })
                     })
                 }
-            }}
+                }
+            }
         Vue.createApp(app).mount('#app')
 
     </script>
