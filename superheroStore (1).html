@@ -92,9 +92,6 @@
             font-size: 0.75em;
             letter-spacing: 1px;
         }
-        .bestelhoeveelheid{
-            text-align: right;
-        }
     </style>
 
 </head>
@@ -104,20 +101,18 @@
         <header id="main-header">
             <h1>{{ titel }}</h1>
             <h5>{{ subtitel }}</h5>
-            <p class="bestelhoeveelheid">Items in winkelwagen: {{ aantalInWinkelwagen }}</p>
         </header>
-        <section id="cookies" v-show='showCookieMelding == true'>
+        <section id="cookies" v-if="check">
             <p>Deze site maakt gebruik van cookies. Door de site verder te gebruiken stem je toe met het gebruik van
                 deze cookies.</p>
-                <input type="checkbox" @change=check />Deze melding niet meer tonen.
+            <input type="checkbox" v-on:change="check()" v-model="check">Deze melding niet meer tonen.
         </section>
-
         <section id="inhoud">
             <h4>Nieuwe items</h4>
             <section id="nieuwe-items">
                 <div class='item' v-for="(item, index) in items">
                     <div class='item-img'>
-                        <img @click="toonGroteFoto(item.afbeeldingsrc)" v-bind:src='[small + item.afbeeldingsrc]'/>
+                        <img @click="toonGroteFoto(item.afbeeldingsrc)" v-bind:src='[pathSmall + item.afbeeldingsrc]'/>
                     </div>
                     <div class='item-body'>
                         <div class='prijs'>{{ item.prijs }}</div>
@@ -163,42 +158,38 @@
                             afbeeldingsrc: 'joey-nicotra-0EI_4R2r0qg-unsplash.jpg',
                             besteld: 0,
                         }],
-                        small: "images/small/",
-                        big: "images/big/",
+                        pathSmall: "images/small/",
+                        pathBig: "images/big/",
                         showCookieMelding: true,
                         winkelwagen:[],
                         aantalInWinkelwagen: 0,
+                        check: true,
                     }
                 },
                 methods: {
                     toonGroteFoto(afbeeldingsrc) {
-                        window.open(this.big + afbeeldingsrc);
-                    },
-                    check: function () {
-                        this.showCookieMelding = false
-                        localStorage.setItem(
-                        'showCookieMelding',
-                        JSON.stringify(this.showCookieMelding),
-                        )
+                        window.open(this.pathBig + afbeeldingsrc);
                     },
 
                     voegToeAanWinkelwagen(index) {
-                        this.items[index].besteld++;
-                        this.saveLocalStorageWinkelwagen(item);
+                        this.item[index].besteld++;
+                        this.saveLocalStorageWinkelwagen();
                         let temp = this.items.filter((item) => item.besteld !== 0);
-                        this.aantalInWinkelwagen++;
-                        //this.items[index].aantalInWinkelwagen++;
-                        //this.aantalInWinkelwagen += (itemInLocal.besteld);
+                        this.aantalInWinkelWagen++;
                     },
 
                     mounted() {
-                        if (localStorage.getItem("showCookieMelding")) {
+                        if (saveLocalStorage.getItem("showCookieMelding")) {
                             this.showCookieMelding = localStorage.getItem("showCookieMelding");
                         } else {
                             this.showCookieMelding = true;
                         }
                         if(localStorage.getItem("winkelwagen")) {
                             let tempLs = JSON.parse(localStorage.getItem("winkelwagen"));
+                            //alle items in LS overlopen
+                            //find in de data overeenkomstig item:
+                            //update item in data met besteld uit item van LS
+                            //update aantalInWinkelwagen
                             tempLs.forEach((itemInLs) => {
                                     let gevondenItemInData = this.items.find(itemInData => itemInData.id == itemInLs.id);
                                 if (gevondenItemInData) {

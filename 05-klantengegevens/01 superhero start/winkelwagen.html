@@ -111,7 +111,7 @@
             <section id="nieuwe-items">
                 <div>
                     <div class="item">
-                        <div class="item-img"><img>
+                        <div class="item-img">{{ items.afbeeldingsrc }}<img>
                         </div>
                         <div class="item-body">
                             <div class="prijs">€</div>
@@ -136,37 +136,45 @@
         const app = {
             data: function () {
                 return {
-                    titel:'',
-                    subtitel:'',
-                    items:{
-                        id:'',
-                        naam:'',
-                        omschrijving:'',
-                        prijs:'',
-                        afbeeldingSrc:''
-                    }
+                    titel: "Superhero store",
+                    subtitel: "Your break from the office life!",
+                    small: "images/small/",
+                    big: "images/big/",
+                    showCookieMelding: false,
+                    items: []
+
                 }
             },
-        
 
             methods: {
-                toonGroteFoto: ,
-                check: ,
-                verwijder: ,
-                aantalAanpassing: ,
-                saveLocalStorageWinkelwagen: 
+                toonGroteFoto(afbeeldingsrc) {
+                        window.open(this.big + afbeeldingsrc);
+                    },
+                    check: function () {
+                        this.showCookieMelding = false
+                        localStorage.setItem(
+                        'showCookieMelding',
+                        JSON.stringify(this.showCookieMelding),
+                        )
+                    },
+
+                verwijder: '',
+                aantalAanpassing:'' ,
+                saveLocalStorageWinkelwagen: ''
             },
             computed: {
                 totalePrijs: function () {
-
+                    var totaal= 0;
+                    for (let i=0; i<this.items.length; i++){
+                        total += parselnt(this.items[i.besteld]);
+                    }
+                    return totaal;
                 },
                 totaalAantalItems: function () {
 
                 }
             },
-            mounted() {
-
-            }
+            
         }
 
         Vue.createApp(app).mount('#app')
