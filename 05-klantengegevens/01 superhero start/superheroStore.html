@@ -95,6 +95,9 @@
         .bestelhoeveelheid{
             text-align: right;
         }
+        .bestelhoeveelheid a{
+            font-size: 20px;
+        }
     </style>
 
 </head>
@@ -104,12 +107,14 @@
         <header id="main-header">
             <h1>{{ titel }}</h1>
             <h5>{{ subtitel }}</h5>
-            <p class="bestelhoeveelheid">Items in winkelwagen: {{ aantalInWinkelwagen }}</p>
+            <p class="bestelhoeveelheid" v-if="aantalInWinkelwagen > 0" id="winkelwagen">Items in <a
+                href="./winkelwagen.html">winkelwagen:</a> {{aantalInWinkelwagen }}</p>
         </header>
-        <section id="cookies" v-show='showCookieMelding == true'>
+
+        <section id="cookies" v-show='showCookieMelding === true'>
             <p>Deze site maakt gebruik van cookies. Door de site verder te gebruiken stem je toe met het gebruik van
                 deze cookies.</p>
-                <input type="checkbox" @change=check />Deze melding niet meer tonen.
+                <input type="checkbox" @change="check" />Deze melding niet meer tonen.
         </section>
 
         <section id="inhoud">
@@ -143,7 +148,7 @@
                             id: "1",
                             naam: 'Superman hondenpak',
                             omschrijving: 'Neem je hond mee als sidekick op al je avonturen!',
-                            prijs: '29,99€',
+                            prijs: '29.99€',
                             afbeeldingsrc: 'elias-castillo-7-ToFEHzMNw-unsplash.jpg',
                             besteld: 0,
                         },
@@ -151,7 +156,7 @@
                             id: "2",
                             naam: 'Wonder Woman',
                             omschrijving: 'Laat de kleine meid tonen hoe speciaal ze is!',
-                            prijs: '34,99€',
+                            prijs: '34.99€',
                             afbeeldingsrc: 'gabriela-braga-CVEWeDNsJP4-unsplash.jpg',
                             besteld: 0,
                         },
@@ -159,7 +164,7 @@
                             id: "3",
                             naam: 'Spiderman masker',
                             omschrijving: 'Je wil niet altijd dat je herkent wordt voor je goede daden!',
-                            prijs: '14,99€',
+                            prijs: '14.99€',
                             afbeeldingsrc: 'joey-nicotra-0EI_4R2r0qg-unsplash.jpg',
                             besteld: 0,
                         }],
@@ -175,7 +180,7 @@
                         window.open(this.big + afbeeldingsrc);
                     },
                     check: function () {
-                        this.showCookieMelding = false
+                        this.showCookieMelding = false;
                         localStorage.setItem(
                         'showCookieMelding',
                         JSON.stringify(this.showCookieMelding),
@@ -183,13 +188,17 @@
                     },
 
                     voegToeAanWinkelwagen(index) {
-                        this.items[index].besteld++;
-                        this.saveLocalStorageWinkelwagen(item);
-                        let temp = this.items.filter((item) => item.besteld !== 0);
-                        this.aantalInWinkelwagen++;
-                        //this.items[index].aantalInWinkelwagen++;
-                        //this.aantalInWinkelwagen += (itemInLocal.besteld);
+                    this.items[index].besteld++;
+                    this.opslaanWinkelwagen();
+                    this.aantalInWinkelwagen++;
                     },
+
+                    opslaanWinkelwagen: function () {
+                    let inWinkelwagen = this.items.filter((item) => item.besteld !== 0);
+                    this.winkelwagen = inWinkelwagen;
+                    localStorage.setItem("winkelwagen", JSON.stringify(this.winkelwagen));
+                    },
+            },
 
                     mounted() {
                         if (localStorage.getItem("showCookieMelding")) {
@@ -208,17 +217,8 @@
                             });		
                         }
                     },
-
-                    onchange() {
-                        
-                    },
-
-                    
-
-
                 }
-        }
-    
+
         Vue.createApp(app).mount('#app')
         
     </script>

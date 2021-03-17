@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meerder transitions</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+    
+        .slide-fade-enter-active {
+            transition: all .3s ease;
+        }
+        .slide-fade-leave-active {
+            transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        }
+        .slide-fade-enter-from,
+        .slide-fade-leave-to {
+                transform: translateX(10px);/*schuift op naar rechts*/
+                opacity: 0;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p>Vue voorziet een transition wrapper component
+            toevoegen van entering/leaving transitions 
+        </p>
+        <button v-on:click="show = !show">Toggle</button>
+        <transition name="slide-fade">
+            <p v-if="show">Hello World</p>
+        </transition>
+        </div>
+        
+
+    <script>
+        const app = {
+            data: function () {
+                return {
+                    show: true
+                }
+            }
+        }
+
+Vue.createApp(app).mount('#app')
+
+    </script>
+</body>
+</html>
