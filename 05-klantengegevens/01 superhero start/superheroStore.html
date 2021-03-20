@@ -98,6 +98,16 @@
         .bestelhoeveelheid a{
             font-size: 20px;
         }
+        /*animatie cookies, deze is niet te testen!!!*/
+        .animatie-enter-enter {
+            transform: translateX(500px);
+        }
+        .animatie-leave-to{
+            opacity: 0;
+        }
+
+     /*knoppen annimeren*/ 
+    
     </style>
 
 </head>
@@ -110,12 +120,18 @@
             <p class="bestelhoeveelheid" v-if="aantalInWinkelwagen > 0" id="winkelwagen">Items in <a
                 href="./winkelwagen.html">winkelwagen:</a> {{aantalInWinkelwagen }}</p>
         </header>
-
+            
         <section id="cookies" v-show='showCookieMelding === true'>
-            <p>Deze site maakt gebruik van cookies. Door de site verder te gebruiken stem je toe met het gebruik van
-                deze cookies.</p>
-                <input type="checkbox" @change="check" />Deze melding niet meer tonen.
-        </section>
+            <transition name="animatie">
+                <div v-if="animatie" class='animatie'>
+                        <p>
+                            Deze site maakt gebruik van cookies. Door de site verder te gebruiken stem je toe met het gebruik van
+                            deze cookies.
+                        </p>
+                    <input type="checkbox" @click='animatie' @change="check" />Deze melding niet meer tonen.
+                </div>
+            </transition> 
+            </section>
 
         <section id="inhoud">
             <h4>Nieuwe items</h4>
