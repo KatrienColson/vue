@@ -96,11 +96,15 @@
         text-align: right;
     }
     /*cookies*/
-    .showcookie-enter-active{
-        transform: translateX (500px);
+    .showCookie-leave-active {
+        transition: all 1s ease;
     }
-    .showcookier-leave-active{
-        opacity: 0
+    .showCookie-leave-from {
+        opacity: 1;
+    }
+    .showCookie-leave-to{
+        opacity: 0;
+        transform: translateX(500px);
     }
     /*bestelknop*/
     .inladenKnop-enter-from
@@ -134,13 +138,16 @@
             <p id="winkelwagen">Items in <a href="winkelwagen.html">winkelwagen</a>: {{aantalInWinkelwagen}}</p>
             </transition>
         </header>
-        <section id="cookies" v-if="showCookieMelding">
-            <transition name="showcookie">
-            <p v-if="show">Deze site maakt gebruik van cookies. Door de site verder te gebruiken stem je toe met het gebruik van
-                deze cookies.</p>
-            </transition>
-            <label><input type="checkbox" v-on:change="check()" @click="show=!show">Deze melding niet meer tonen.</label>
-        </section>
+        <transition name="showCookie">
+            <section id="cookies" v-show="showCookieMelding == true" v-if="showCookieMelding">
+            <p>
+            Deze site maakt gebruik van cookies. Door de site verder te
+            gebruiken stem je toe met het gebruik van deze cookies.
+            </p>
+            <input type="checkbox" @change="check" @click="showCookieMelding = !showCookieMelding" />
+            Deze melding niet meer tonen.
+            </section>
+        </transition>
         <section id="inhoud">
             <h4>Nieuwe items</h4>
             <section id="nieuwe-items">
@@ -171,7 +178,7 @@
                 subtitel: "Your break from the office life!",
                 pathSmall: "images/small/",
                 pathBig: "images/big/",
-                showCookieMelding: false,
+                showCookieMelding: true,
                 items: [{
                         id: 1,
                         naam: "hondenpak superman",
@@ -199,7 +206,6 @@
                 ],
                 winkelwagen: [],
                 aantalInWinkelwagen: 0,
-                show:false
             }
         },
         methods: {
@@ -221,7 +227,6 @@
             },
         },
     
-
         mounted() {
             if (localStorage.getItem("winkelwagen")) {
                 let tempLs = JSON.parse(localStorage.getItem("winkelwagen"));
