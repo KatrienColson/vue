@@ -6,18 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Router vue</title>
     <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/vue-router@4"></script>
     <style>
+        .router-link-active {
+            font-weight: bold
+        }
+        .router-link {
+            margin: 50px;
+        }
+        nav {
+            margin-bottom: 20px;
+        }
 
     </style>
 </head>
 
 <body>
     <div id="app">
+        <nav>
+            <router-link class="router-link" to="/">Home</router-link>
+            <router-link class="router-link" to="/about">About</router-link>
+            <router-link class="router-link" to="/contact">Contact</router-link>
+        </nav>
+        <router-view>
+            <!-- Hier komt alles automatich in staan -->
+        </router-view>
         
     </div>
 
 
     <script>
+        const home = {
+            template: '<div>Home inhoud</div>'
+        }
+        const about = {
+            template: '<div>About inhoud</div>'
+        }
+        const contact = {
+            template: '<div>Contact inhoud</div>'
+        }
+        const router = new VueRouter.createRouter({
+            history: VueRouter.createWebHashHistory(),
+            routes: [
+            { path: '/', name: "Home", component: home },
+            { path: '/about', name: "About", component: about },
+            { path: '/contact', name: "Contact", component: contact }
+            ]
+        })
+
+
         const app = {
                 data() {
                     return {
@@ -26,7 +63,7 @@
                 }
         }
 
-        Vue.createApp(app).mount('#app')
+        Vue.createApp(app).use(router).mount('#app')
 
     </script>
 </body>
