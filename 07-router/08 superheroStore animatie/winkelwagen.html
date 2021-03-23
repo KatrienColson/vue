@@ -41,7 +41,7 @@
             justify-content: space-between;
         }
 
-        .item {
+        .item2 {
             border: 2px solid #ccc;
             width: 800px;
             background-color: #fff;
@@ -49,7 +49,7 @@
             margin-bottom: 50px;
         }
 
-        .item-img {
+        .item-img2 {
             width: 100px;
             height: 100px;
             background-color: #ddd;
@@ -69,15 +69,15 @@
             margin: 0;
         }
 
-        .item-body .prijs,
+         .item-body .prijs,
         input,
         .totaal {
             font-size: 2em;
             color: #009900;
             margin-bottom: 25px;
-        }
+        } 
 
-        .knop {
+         .knop {
             display: inline-block;
             text-decoration: none;
             background-color: #009900;
@@ -86,82 +86,94 @@
             border-radius: 6px;
             font-size: 0.75em;
             letter-spacing: 1px;
-        }
+        } 
 
-        #winkelwagen {
+         #winkelwagen {
             text-align: right;
-        }
+        } 
 
-        .itemTransition-leave-to {
+         .itemTransition-leave-to {
             transform: translateX(-500px);
             opacity: 0;
         }
 
         .itemTransition-leave-active {
-            /* position: absolute; */
+            position: absolute; 
             transition: all 1s ease;
 
         }
 
         .itemTransition-move {
             transition: transform 1s;
-        }
+        } 
     </style>
     <script src="https://unpkg.com/vue@next"></script>
     <script src="vue.global.js"></script>
 </head>
 
-<body>
-    <div id="app">
-        <header id="main-header">
-            <h1><a href="superheroStore.html">{{titel}}</a></h1>
-            <h5>{{subtitel}}</h5>
-            <p id="winkelwagen">Items in winkelwagen: {{totaalAantalItems}}</p>
-        </header>
+<div id="app">
+    <header id="main-header">
+        <h1>{{titel}}</h1>
+        <h5>{{subtitel}}</h5>
+        <div id="winkelwagenBox">
+            <transition name="winkelwagen">
+                <p v-if="showWinkelwagen" id="winkelwagen">Items in <a href="winkelwagen.html">winkelwagen</a>:
+                    {{aantalInWinkelwagen}}</p>
+            </transition>
+            <nav>
+                <router-link class="router-link" to="/">Home</router-link>
+                <router-link class="router-link" to="/winkelwagen">Winkelwagen</router-link>
+            </nav>
+            
+        </div>
+    </header>
+    <transition name="cookieTransition">
         <section id="cookies" v-if="showCookieMelding">
-            <p>Deze site maakt gebruik van cookies. Door de site verder te gebruiken stem je toe met het gebruik van
-                deze cookies.</p>
-            <input type="checkbox" v-on:change="check()">Deze melding niet meer tonen.
+            <p>Deze site maakt gebruik van cookies. Door de site verder te gebruiken stem je toe met het gebruik
+                van deze cookies.</p>
+            <label><input type="checkbox" v-on:change="check()">Deze melding niet meer tonen.</label>
         </section>
+    </transition>
+    <router-view></router-view>
+</div>
 
         
-        <section id="inhoud">
-            <h4>Gekozen items</h4>
-            <!-- v-if verwijderdt de laatste item onmiddelijk, dus zonder animatie
-            oplossing: gebruik 2 identieke transitions, 1 buiten de if, 1 binnen de if -->
-            <section id="nieuwe-items">
-                <transition name="itemTransition" tag="div">
-                    <div v-if="items.length > 0">
-                        <transition-group name="itemTransition" tag="div">
-                            <div class="item" v-for='(item,index) in items' :key='item.id'>
-                                <div class="item-img">
-                                    <img v-bind:src="pathSmall +item.src" v-on:click="toonGroteFoto(item.src)">
-                                </div>
-                                <div class="item-body">
-                                    <div class="prijs">
-                                        {{parseFloat(item.prijs) * parseFloat(item.besteld)}}€
+        <script type="text/x-template" id="winkelwagenTemplate">
+            <section id="winkelwageninhoud">
+                <h4>Gekozen items</h4>
+                <!-- v-if verwijderdt de laatste item onmiddelijk, dus zonder animatie
+                oplossing: gebruik 2 identieke transitions, 1 buiten de if, 1 binnen de if -->
+                <section id="winkelwagennieuwe-items">
+                    <transition name="itemTransition" tag="div">
+                        <div v-if="items.length > 0">
+                            <transition-group name="itemTransition" tag="div">
+                                <div class="winkelwagenitem" v-for='(item,index) in items' :key='item.id'>
+                                    <div class="winkelwagenitem-img">
+                                        <img v-bind:src="pathSmall +item.src" v-on:click="toonGroteFoto(item.src)">
                                     </div>
-                                    <h4>{{item.naam}}</h4>
-                                    <p>{{item.omschrijving}}</p>
-                                    <input type="number" v-model="item.besteld" size="2"
-                                        v-on:change="aantalAanpassing(index)">
-                                    <a href="#" class="knop" v-on:click.prevent="verwijder(index)">verwijder</a>
+                                    <div class="winkelwagenitem-body">
+                                        <div class="winkelwagenprijs">
+                                            {{parseFloat(item.prijs) * parseFloat(item.besteld)}}€
+                                        </div>
+                                        <h4>{{item.naam}}</h4>
+                                        <p>{{item.omschrijving}}</p>
+                                        <input type="number" v-model="item.besteld" size="2"
+                                            v-on:change="aantalAanpassing(index)">
+                                        <a href="#" class="knop" v-on:click.prevent="verwijder(index)">verwijder</a>
+                                    </div>
                                 </div>
+                            </transition-group>
+                            <div>
+                                <p class="winkelwagentotaal">Totaal: {{(totalePrijs).toFixed(2)}}</p>
                             </div>
-                        </transition>
-
-                        <div>
-                            <p class="totaal">Totaal: {{(totalePrijs).toFixed(2)}}</p>
                         </div>
+                    </transition>
+                    <div v-if="items.length == 0">
+                        <p>Geen items</p>
                     </div>
-                </transition>
-                <div v-if="items.length == 0">
-                    <p>Geen items</p>
-                </div>
-
+                </section>
             </section>
-        </section>
-    </div>
+        </script>
     <script type="text/javascript">
         const app = {
             data: function () {

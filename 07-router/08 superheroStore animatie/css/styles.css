@@ -14,7 +14,8 @@ header {
     border-bottom: 1px solid #ddd;
 }
 
-a {
+h1 a {
+    text-decoration: none;
     color: #ffeedd;
 }
 
@@ -144,4 +145,37 @@ a {
 }
 nav {
     margin-bottom: 20px;
+}
+/*winkelwagen*/
+
+input,
+.totaal {
+    font-size: 2em;
+    color: #009900;
+    margin-bottom: 25px;
+}
+.item2 {
+    border: 2px solid #ccc;
+    width: 800px;
+    background-color: #fff;
+    text-align: right;
+    margin-bottom: 50px;
+}
+.item-img2 {
+    width: 100px;
+    height: 100px;
+    background-color: #ddd;
+}
+.itemTransition-leave-to {
+    transform: translateX(-500px);
+    opacity: 0;
+}
+
+.itemTransition-leave-active {
+    /* position: absolute; */
+    transition: all 1s ease;
+}
+
+.itemTransition-move {
+    transition: transform 1s;
 }

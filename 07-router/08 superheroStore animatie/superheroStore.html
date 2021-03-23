@@ -27,7 +27,7 @@
                     <router-link class="router-link" to="/">Home</router-link>
                     <router-link class="router-link" to="/winkelwagen">Winkelwagen</router-link>
                 </nav>
-                <router-view></router-view>
+                
             </div>
         </header>
         <transition name="cookieTransition">
@@ -37,8 +37,10 @@
                 <label><input type="checkbox" v-on:change="check()">Deze melding niet meer tonen.</label>
             </section>
         </transition>
+        <router-view></router-view>
     </div>
 
+    <script type="text/x-template" id="homeTemplate">
         <section id="inhoud">
             <h4>Nieuwe items</h4>
             <section id="nieuwe-items">
@@ -62,9 +64,8 @@
                     </div>
                 </div>
             </section>
-
-
         </section>
+    </script>
     </div>
     <script type="text/javascript">
         const home = {
@@ -121,16 +122,16 @@
                         besteld: 0
                     }
                     ],
-                    winkelwagen: [],
+                    // winkelwagen: [],
                     aantalInWinkelwagen: 0,
                     showWinkelwagen: true,
-                    showBesteld: []
+                    // showBesteld: []
                 }
             },
             methods: {
-                toonGroteFoto: function (src) {
-                    window.open(this.pathBig + src);
-                },
+                // toonGroteFoto: function (src) {
+                //     window.open(this.pathBig + src);
+                // },
                 check: function () {
                     this.showCookieMelding = false;
                     localStorage.setItem("showCookieMelding", false);
@@ -139,38 +140,38 @@
                     let temp = this.items.filter((item) => item.besteld !== 0);
                     localStorage.setItem("winkelwagen", JSON.stringify(temp));
                 },
-                VoegToeAanWinkelwagen: function (index) {
-                    this.showWinkelwagen = false;
-                    this.showBesteld[index] = false;
+                // VoegToeAanWinkelwagen: function (index) {
+                //     this.showWinkelwagen = false;
+                //     this.showBesteld[index] = false;
 
-                    this.items[index].besteld++;
-                    this.aantalInWinkelwagen++;
+                //     this.items[index].besteld++;
+                //     this.aantalInWinkelwagen++;
 
-                    this.saveLocalStorageWinkelwagen();
+                //     this.saveLocalStorageWinkelwagen();
 
-                    setTimeout(function (scope) {
-                        scope.showWinkelwagen = true;
-                        scope.showBesteld[index] = true;
-                    }, 500, this);
+                //     setTimeout(function (scope) {
+                //         scope.showWinkelwagen = true;
+                //         scope.showBesteld[index] = true;
+                //     }, 500, this);
                 }
 
             },
 
             mounted() {
-                if (localStorage.getItem("winkelwagen")) {
-                    tempLS = JSON.parse(localStorage.getItem("winkelwagen"));
+                // if (localStorage.getItem("winkelwagen")) {
+                //     tempLS = JSON.parse(localStorage.getItem("winkelwagen"));
 
-                    tempLS.forEach((itemLS) => {
-                        this.items.forEach((dataItem, index) => {
-                            if (itemLS.id == dataItem.id) {
-                                dataItem.besteld = itemLS.besteld;
-                                this.aantalInWinkelwagen += itemLS.besteld;
-                                this.showBesteld[index] = true
-                            }
-                        })
-                    })
+                //     tempLS.forEach((itemLS) => {
+                //         this.items.forEach((dataItem, index) => {
+                //             if (itemLS.id == dataItem.id) {
+                //                 dataItem.besteld = itemLS.besteld;
+                //                 this.aantalInWinkelwagen += itemLS.besteld;
+                //                 this.showBesteld[index] = true
+                //             }
+                //         })
+                //     })
 
-                }
+                // }
                 if (localStorage.getItem("showCookieMelding")) {
                     this.showCookieMelding = JSON.parse(localStorage.getItem("showCookieMelding"))
                 }
