@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oefening</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h3>{{titel}}</h3>
+        <card v-for="klant in klanten" v-bind:id="klant.id" v-bind:naam="klant.naam" v-bind:key="klant.id"></card>
+    </div>
+    
+    <script type="text/x-template" id="cardTemplate">
+        <div>
+            <p>{{ id }}</p>
+            <p>{{ naam }}</p>
+        </div>
+    </script>
+
+    <script>
+        const app = Vue.createApp({
+        data: function () {
+            return {
+                klanten:[
+                    {id: 1, naam:'Jef Jansen'},
+                    {id:2, naam:'Jef Jans'},
+                    {id:3, naam:'Jef Janssen'}
+                ],
+                titel:"klanten fiche"
+            }
+        }
+    })
+
+    app.component('card', {
+        props:['id', 'titel', 'naam'],
+        template:'#cardTemplate'
+    })
+
+        app.mount('#app')
+
+    </script>
+</body>
+</html>

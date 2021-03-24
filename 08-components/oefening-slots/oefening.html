@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oefening logo</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style type="text/css">
+        .container {
+            background-color: lightgrey;
+            color: white;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 50px;
+        }
+        #social {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        <mijn-header>
+            <template v-slot:logo>
+                <img src="images/logo2.png">
+            </template>
+            <template v-slot:bedrijfsnaam>Mijn Bedrijf</template>
+            <template v-slot:social>
+                <a href="https://www.facebook.com"><img src="images/facebook.png"></a>
+                <a href="https://www.instagram.com"><img src="images/instagram.png"></a>
+                <a href="https://www.youtube.com"><img src="images/youtube.png"></a>
+            </template>
+        
+        </mijn-header>
+    </div>
+        <script type="text/x-template" id="mijn-headerTemplate">
+            <div class="container">
+                <div>
+                <slot name="logo"><img src="images/logo.png"></slot>
+                </div>
+                <div>
+                <h1><slot name="bedrijfsnaam">Bedrijfsnaam</slot></h1>
+                </div>
+            <div id="social">
+                <slot name="social">
+                <a href="https://www.facebook.com">Facebook</a>
+                <a href="https://www.instagram.com">Instagram</a>
+                <a href="https://www.youtube.com">Youtube</a>
+                </slot>
+            </div>
+            </div>
+        </script>
+
+
+    <script>
+    const app = Vue.createApp({
+        data: function () {
+            return {}
+        }
+    })
+
+    app.component('mijn-header', {
+        data: function () {
+            return {}
+        },
+        template: '#mijn-headerTemplate'
+    })
+
+    app.mount('#app')
+
+
+    </script>
+</body>
+</html>
