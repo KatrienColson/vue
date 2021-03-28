@@ -31,7 +31,6 @@ const home = {
             ],
             winkelwagen: [],
             aantalInWinkelwagen: 0,
-            //showWinkelwagen: true,
             showBesteld: []
         }
     },
@@ -49,6 +48,7 @@ const home = {
             this.items[index].besteld++;
             this.$root.aantalInWinkelwagen++;
             this.saveLocalStorageWinkelwagen();
+
             setTimeout(function (scope) {
                 scope.$root.showWinkelwagen = true;
                 scope.showBesteld[index] = true;
@@ -60,6 +60,7 @@ const home = {
         if (localStorage.getItem("winkelwagen")) {
             this.$root.aantalInWinkelwagen = 0;
             tempLS = JSON.parse(localStorage.getItem("winkelwagen"));
+
             tempLS.forEach((itemLS) => {
                 this.items.forEach((dataItem, index) => {
                     if (itemLS.id == dataItem.id) {
@@ -69,8 +70,7 @@ const home = {
                     }
                 })
             })
+
         }
-
-
-    
-app.mount('#app')
+    }
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Webshop</title>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/vue-router@4"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header id="main-header">
+            <h1>
+                <router-link to="/">{{titel}}</router-link>
+            </h1>
+            <h5>{{subtitel}}</h5>
+            <div id="winkelwagenBox">
+                <transition name="winkelwagen">
+                    <p v-if="showWinkelwagen" id="winkelwagen">Items in <router-link to="/winkelwagen">Winkelwagen
+                        </router-link>:
+                        {{aantalInWinkelwagen}}</p>
+                </transition>
+            </div>
+            <nav>
+                <router-link class="router-link" to="/">Store</router-link>
+                <router-link class="router-link" to="/winkelwagen">Winkelwagen</router-link>
+            </nav>
+        </header>
+        <cookie-melding></cookie-melding>
+        <router-view></router-view>
+    </div>
+
+    <script type="text/x-template" id="cookie-melding-template">
+        <transition name="cookieTransition">
+            <section id="cookies" v-if="showCookieMelding">
+                <p>Deze site maakt gebruik van cookies. Door de site verder te gebruiken stem je toe met het gebruik
+                    van
+                    deze cookies.</p>
+                <input type="checkbox" v-on:change="check()">Deze melding niet meer tonen.
+            </section>
+        </transition>
+    </script>
+
+    <script type="text/x-template" id="homeTemplate">
+        <section id="inhoud">
+        <h4>Nieuwe items</h4>
+            <section id="nieuwe-items">
+                <item-component
+                    v-for='(item,index) in items'
+                    v-bind:item="item"
+                    v-bind:index="index"
+                    v-bind:showBesteld="showBesteld"
+                    v-bind:pathSmall="pathSmall"
+                    v-on:toon-grote="toonGroteFoto(item.src)"
+                    v-on:bestel-button="VoegToeAanWinkelwagen(index)">
+                </item-component>
+            </section>
+        </section >
+    </script>
+
+    <script type="text/x-template" id="itemTemplate">
+        <div class="item" :key="item.id">
+            <div class="item-img">
+                <img v-bind:src="pathSmall +item.src" v-on:click="$emit('toon-grote')">
+            </div>
+            <div class="item-body">
+                <div class="prijs">{{ item.prijs }}€</div>
+                <h4>{{ item.naam }}</h4>
+                <p>{{ item.omschrijving }}</p>
+                <transition name="knopTransition" appear>
+                    <div>
+                        <a href="#" class="knop" v-on:click.prevent="$emit('bestel-button')">BESTEL</a>
+                    </div>
+                </transition>
+
+                <transition name="besteldTransition">
+                <p class="besteld" v-if="item.besteld>0 && showBesteld[index]">Besteld: {{item.besteld}}</p>
+            </transition>
+            </div>
+        </div>
+    </script>
+
+    <script src="home.js"></script>
+    <script src="winkelwagen.js"></script>
+
+    <script>
+
+        const router = new VueRouter.createRouter({
+            history: VueRouter.createWebHashHistory(),
+            routes: [
+                { path: '/', name: "Home", component: home },
+                { path: '/winkelwagen', name: "Winkelwagen", component: winkelwagen }
+            ]
+        })
+
+        const app = Vue.createApp({
+            data: function () {
+                return {
+                    titel: "Superhero store",
+                    subtitel: "Your break from the office life!",
+                    aantalInWinkelwagen: 0,
+                    showWinkelwagen: true,
+                }
+            }
+        })
+
+        app.component('cookie-melding', {
+            data: function () {
+                return {
+                    showCookieMelding: false
+                }
+            },
+
+            methods: {
+                check: function () {
+                    this.showCookieMelding = false;
+                    localStorage.setItem("showCookieMelding", false);
+                }
+            },
+            mounted() {
+                if (localStorage.getItem("showCookieMelding")) {
+                    this.showCookieMelding = JSON.parse(localStorage.getItem("showCookieMelding"))
+                } else {
+                    this.showCookieMelding = true
+                }
+            },
+            template: `#cookie-melding-template`
+        })
+
+        app.component('item-component', {
+            props:['item', 'pathSmall', 'showBesteld', 'index'],
+            template: `#itemTemplate`
+        })
+
+        app.use(router).mount('#app')
+
+    </script>
+</body>
+</html>

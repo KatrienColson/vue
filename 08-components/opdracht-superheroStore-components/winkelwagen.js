@@ -13,31 +13,19 @@ const winkelwagen = {
         },
         verwijder: function (index) {
             this.items.splice(index, 1);
-            //this.setAantalInWinkelWagen();
             this.saveLocalStorageWinkelwagen()
         },
         aantalAanpassing: function (index) {
             if (this.items[index].besteld == 0) {
                 this.items.splice(index, 1);
             }
-            // this.setAantalInWinkelwagen();
             this.saveLocalStorageWinkelwagen()
         },
         saveLocalStorageWinkelwagen: function () {
             let temp = this.items.filter((item) => item.besteld !== 0);
             localStorage.setItem("winkelwagen", JSON.stringify(temp));
         },
-        // setAantalInWinkelwagen() {
-        //     let totaal = 0;
-        //     if (this.items.length > 0) {
-        //         this.items.forEach(item => {
-        //             if (item.besteld > 0) {
-        //                 totaal += parseInt(item.besteld)
-        //             }
-        //         })
-        //     }
-        //     this.$root.aantalInWinkelwagen = totaal;
-        // }
+
     },
     computed: {
         totalePrijs: function () {
@@ -70,7 +58,6 @@ const winkelwagen = {
     mounted() {
         if (localStorage.getItem("winkelwagen")) {
             this.items = JSON.parse(localStorage.getItem("winkelwagen"))
-            // this.setAantalInWinkelwagen();
         }
     }
 }

@@ -1,4 +1,3 @@
-
 body,
 html {
     font-family: verdana, sans-serif;
@@ -118,9 +117,7 @@ input {
 }
 
 .itemTransition-leave-active {
-    /* position: absolute; */
     transition: all 1s ease;
-
 }
 
 .itemTransition-move {
