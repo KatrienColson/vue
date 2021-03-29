@@ -21,10 +21,11 @@
     </div>
     <script type="text/x-template" id="comments-template">
         <div>
-                <h3>Comment {{ user.id }}</h3>
-                <p>Naam: {{user.name}}</p>
-                <p>Email: {{ user.email }} </p>
-                <p>Comment: {{ user.body }}</p>
+            {{ username }}
+                <h3>Comment {{ username.id }}</h3>
+                <p>Naam: {{username.name}}</p>
+                <p>Email: {{ username.email }} </p>
+                <p>Comment: {{ username.body }}</p>
                 <hr>
         </div>
     </script>
@@ -33,7 +34,8 @@
     const app = Vue.createApp({
         data: function () {
             return {
-                usernames: ['name']
+                usernames: ['katrien', 'carlos'],
+
             }
         }
     })
@@ -46,6 +48,7 @@
         },
         template: '#comments-template',
         props: ['username'],
+
 
         created() {   axios.get(`https://jsonplaceholder.typicode.com/comments/${this.username}`)
             .then(response => {
